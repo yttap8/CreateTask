@@ -13,10 +13,10 @@ function game(element){
   if (gameover){
     return;
   }
-  turns();
   if (element.innerText != ''){
     return;
   }
+  turns();
   element.innerText = move;
   setBoard();
   check();
@@ -91,5 +91,18 @@ function check() {
     gameover = true;
     document.getElementById("message").innerHTML = message;
     return;
+  }
+  if (gameover != true){
+    var n = 0;
+    for (var r = 0; r<3; r++){
+      for (var c = 0; c<3; c++){
+        if (board[r][c] != ''){
+          n = n+1;
+        }
+      }
+    }
+    if (n==9){
+      document.getElementById("message").innerHTML = "It's a Tie";
+    }
   }
 }
