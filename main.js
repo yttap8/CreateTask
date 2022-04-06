@@ -1,32 +1,50 @@
 var board = [
-  ['O','X','O'],
-  ['X','X','O'],
-  ['O','O','X']
+  ['','',''],
+  ['','',''],
+  ['','','']
 ];
 
 var message;
 var move;
 var gameover;
 
-function turns(move){
-  if (move == 'X'){
-    move = 'O';
-  }else{
-    move = 'X'
-  }
-}
-
-function game(){
+//main game, runs every time a tile is clicked
+function game(element){
   if (gameover){
     return;
   }
   turns();
-  var cord = this.id.split(",");
-  var r = parseInt(cord[0]);
-  var c = parseInt(cord[1]);
+  if (element.innerText != ''){
+    return;
+  }
+  element.innerText = move;
+  setBoard();
   check();
 }
-function check(board) {
+
+function turns(){
+  if (move == 'X'){
+    move = 'O';
+    document.getElementById("message").innerHTML = "It's X's Turn";
+  }else{
+    move = 'X'
+    document.getElementById("message").innerHTML = "It's O's Turn";
+  }
+}
+
+function setBoard(){
+  board[0][0] = document.getElementById('0').innerText;
+  board[0][1] = document.getElementById('1').innerText;
+  board[0][2] = document.getElementById('2').innerText;
+  board[1][0] = document.getElementById('3').innerText;
+  board[1][1] = document.getElementById('4').innerText;
+  board[1][2] = document.getElementById('5').innerText;
+  board[2][0] = document.getElementById('6').innerText;
+  board[2][1] = document.getElementById('7').innerText;
+  board[2][2] = document.getElementById('8').innerText;
+}
+
+function check() {
   //rows
   for (var r = 0; r<3; r++){
      if (board[r][0] == board [r][1]&& board[r][1]== board[r][2] && board[r][1]!=''){
@@ -36,18 +54,20 @@ function check(board) {
          message = 'O wins';
        }
        gameover = true;
+       document.getElementById("message").innerHTML = message;
        return;
      }
   }
   //columns
   for (var c = 0; c<3; c++){
     if (board[0][c] == board [1][c]&& board[1][c]== board[2][c] && board[0][c]!=''){
-        if (board [r][1]=='X'){
+        if (board [0][c]=='X'){
           message = 'X wins';
         }else{
           message = 'O wins';
         }
         gameover = true;
+        document.getElementById("message").innerHTML = message;
         return;
      }
   }
@@ -59,6 +79,7 @@ function check(board) {
         message = 'O wins';
     }
     gameover = true;
+    document.getElementById("message").innerHTML = message;
     return;
   }
   if (board[0][2] == board [1][1]&& board[1][1]== board[2][0] && board[0][2]!=''){
@@ -68,7 +89,7 @@ function check(board) {
         message = 'O wins';
     }
     gameover = true;
+    document.getElementById("message").innerHTML = message;
     return;
   }
-  document.getElementById("message").innerHTML = message;
 }
