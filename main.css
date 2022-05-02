@@ -17,6 +17,7 @@ body{
   border-color: black;
   height:100px;
   width:100px;
-  display:flex;
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
